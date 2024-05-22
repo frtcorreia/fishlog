@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
     "start": "nodemon src/index.ts",
-    "seeds": "ts-node src/seeds.ts"
+    "seeds": "ts-node src/seeds.ts" 
   },
   "keywords": [],
   "author": "",
