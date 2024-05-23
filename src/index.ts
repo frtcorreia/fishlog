@@ -13,6 +13,7 @@ setupSwagger(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(require("express-status-monitor")());
 
 app.use("/auth", authRoutes);
 app.use("/capture", authMiddleware, capturesRoutes);
