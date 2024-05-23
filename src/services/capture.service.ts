@@ -222,6 +222,10 @@ const deleteCapture = async (id: number, userId: number) => {
   }
 
   await prisma.capture.delete({ where: { id } });
+  await prisma.bait.delete({ where: { id } });
+  await prisma.location.delete({ where: { id } });
+  await prisma.water.delete({ where: { id } });
+  await prisma.weather.delete({ where: { id } });
 
   return { message: `Capture with ID ${id} successfully deleted` };
 };

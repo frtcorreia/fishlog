@@ -9,7 +9,7 @@ import {
 
 const router = Router();
 
-router.post("/", async (req: any, res) => {
+const addCapture = async (req: any, res: any) => {
   const {
     weight,
     size,
@@ -39,9 +39,9 @@ router.post("/", async (req: any, res) => {
   } catch (e) {
     res.status(400).json("error");
   }
-});
+};
 
-router.get("/", async (req: any, res) => {
+const getAllCaptures = async (req: any, res: any) => {
   try {
     const userId = req.user;
     const captures = await getCaptures(userId);
@@ -49,9 +49,9 @@ router.get("/", async (req: any, res) => {
   } catch (e) {
     res.status(400).json("error");
   }
-});
+};
 
-router.get("/:id", async (req: any, res) => {
+const getCapturesById = async (req: any, res: any) => {
   const { id } = req.params;
   try {
     const userId = req.user;
@@ -60,9 +60,9 @@ router.get("/:id", async (req: any, res) => {
   } catch (e) {
     res.status(400).json("error");
   }
-});
+};
 
-router.put("/:id", async (req: any, res) => {
+const updateCaptureById = async (req: any, res: any) => {
   const { id } = req.params;
   const {
     weight,
@@ -94,9 +94,9 @@ router.put("/:id", async (req: any, res) => {
   } catch (e) {
     res.status(400).json("error");
   }
-});
+};
 
-router.delete("/:id", async (req: any, res, next) => {
+const deleteCaptureById = async (req: any, res: any) => {
   const id = parseInt(req.params.id, 10);
   try {
     const userId = req.user;
@@ -105,6 +105,12 @@ router.delete("/:id", async (req: any, res, next) => {
   } catch (e) {
     res.status(400).json("error");
   }
-});
+};
 
-export default router;
+export {
+  addCapture,
+  getAllCaptures,
+  getCapturesById,
+  updateCaptureById,
+  deleteCaptureById,
+};
