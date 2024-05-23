@@ -1,8 +1,9 @@
 {
   "name": "fish-log",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
+    "build": "tsc",
     "start": "nodemon src/index.ts",
     "seeds": "ts-node src/seeds.ts"
   },
