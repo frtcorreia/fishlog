@@ -40,12 +40,14 @@ const login = async (req: Request, res: Response) => {
 
   try {
     const user = await prisma.user.findUnique({
-      where: { email },
+      where: { email, status: true },
       include: { role: true },
     });
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      return res
+        .status(401)
+        .json({ error: "Invalid credentials or account is not active" });
     }
 
     const token = jwt.sign(

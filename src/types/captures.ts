@@ -7,7 +7,8 @@ export interface CreateCaptureDto {
   weight: number | null;
   size: number | null;
   photo: string | null;
-  timestamp: Date | null;
+  date: string | null;
+  time: string | null;
   location: CreateLocationDto;
   weather: CreateWeatherDto;
   water: CreateWaterDto;
@@ -20,7 +21,8 @@ export interface UpdateCaptureDto {
   weight: number | null;
   size: number | null;
   photo: string | null;
-  timestamp: Date | null;
+  date: string | null;
+  time: string | null;
   locationId?: number;
   weatherId?: number;
   waterId?: number;
@@ -34,7 +36,8 @@ export interface CaptureDto {
   weight: number | null;
   size: number | null;
   photo: string | null;
-  timestamp: Date | null;
+  date: string | null;
+  time: string | null;
   locationId?: number;
   weatherId?: number;
   waterId?: number;

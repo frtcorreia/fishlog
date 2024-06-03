@@ -7,15 +7,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Todo {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  completed   Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
 model Role {
   id          Int    @id @default(autoincrement())
   description String @unique
@@ -41,7 +32,8 @@ model Capture {
   weight      Float?
   size        Float?
   photo       String?
-  timestamp   DateTime?
+  date        String?
+  time        String?
   location    Location? @relation(fields: [locationId], references: [id])
   locationId  Int
   weatherData Weather?  @relation(fields: [weatherId], references: [id])

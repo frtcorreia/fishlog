@@ -1,4 +1,4 @@
-import { PrismaClient, Todo } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { CaptureDto, CreateCaptureDto, UpdateCaptureDto } from "../types";
 import { BadRequestError, NotFoundError } from "../helpers/errors";
 
@@ -40,7 +40,8 @@ const createCapture = async (data: CreateCaptureDto) => {
       weight: data?.weight,
       size: data?.size,
       photo: data?.photo,
-      timestamp: data?.timestamp,
+      date: data?.date,
+      time: data?.time,
       locationId: location.id,
       weatherId: weather.id,
       waterId: water.id,
@@ -67,7 +68,8 @@ const getCaptures = async (userId: number) => {
     weight: capture.weight,
     size: capture.size,
     photo: capture.photo,
-    timestamp: capture.timestamp,
+    date: capture?.date,
+    time: capture?.time,
     description: capture.description,
     user: {
       id: capture.user?.id,
@@ -121,7 +123,8 @@ const getCaptureId = async (id: number, userId: number) => {
     weight: capture.weight,
     size: capture.size,
     photo: capture.photo,
-    timestamp: capture.timestamp,
+    date: capture?.date,
+    time: capture?.time,
     description: capture.description,
     user: {
       id: capture.user?.id,
@@ -172,7 +175,8 @@ const updateCapture = async (
       weight: data.weight,
       size: data.size,
       photo: data.photo,
-      timestamp: data.timestamp,
+      date: data.date,
+      time: data.time,
       userId: data.userId,
       description: data.description,
     },
