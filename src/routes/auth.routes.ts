@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { login, register } from "../controllers/auth.controller";
-import upload from "../middlewares/upload.middleware";
+import {
+  upload,
+  uploadToCloudinary,
+} from "../middlewares/cloudinary.middleware";
 
 const router = Router();
 
@@ -8,6 +11,8 @@ const router = Router();
  * @swagger
  * /auth/register:
  *   post:
+ *     tags:
+ *      - Auth
  *     summary: Register new angler
  *     requestBody:
  *       required: true
@@ -32,15 +37,17 @@ const router = Router();
  *                 format: binary
  *     responses:
  *       201:
- *         description: Usuário registrado com sucesso
+ *         description: Angler updated successfully
  *       400:
- *         description: Dados inválidos
+ *         description: Invalid Data
  */
-router.post("/register", upload.single("photo"), register);
+router.post("/register", upload.single("photo"), uploadToCloudinary, register);
 /**
  * @swagger
  * /auth/login:
  *   post:
+ *     tags:
+ *      - Auth
  *     summary: Login
  *     requestBody:
  *       required: true
@@ -57,9 +64,9 @@ router.post("/register", upload.single("photo"), register);
  *                 example: secretpassword
  *     responses:
  *       200:
- *         description: Login bem-sucedido
+ *         description: Login successfully
  *       401:
- *         description: Credenciais inválidas
+ *         description: Invalid credentials
  */
 router.post("/login", login);
 

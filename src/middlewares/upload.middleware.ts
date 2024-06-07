@@ -1,9 +1,6 @@
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-import prisma from "../prismaClient";
-
-const uploadPath = path.join(__dirname, "../uploads");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

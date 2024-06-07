@@ -3,7 +3,6 @@ export interface CreateUserDto {
   email: string;
   password: string;
   photo?: string;
-  status: boolean;
   roleId: number;
 }
 
@@ -12,17 +11,26 @@ export interface UpdateUserDto {
   email?: string;
   password?: string;
   photo?: string;
-  status?: boolean;
+  isActive?: boolean;
   roleId?: number;
 }
 
 export interface UserDto {
-  id: number | undefined;
+  id: number;
   name: string;
   email: string;
   photo?: string;
-  status: boolean;
+  isActive: boolean;
   roleId: number;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface ActivateUserDTO {
+  token: string;
+}
+
+export interface ResetPasswordDTO {
+  token: string;
+  newPassword: string;
 }

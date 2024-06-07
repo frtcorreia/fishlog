@@ -23,17 +23,21 @@ model Role {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  name      String
-  email     String    @unique
-  password  String
-  photo     String?
-  status    Boolean
-  roleId    Int
-  role      Role      @relation(fields: [roleId], references: [id])
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Capture   Capture[]
+  id                   Int       @id @default(autoincrement())
+  name                 String
+  email                String    @unique
+  password             String
+  photo                String?
+  isActive             Boolean
+  roleId               Int
+  role                 Role      @relation(fields: [roleId], references: [id])
+  activationToken      String?
+  activationExpires    DateTime?
+  passwordResetToken   String?
+  passwordResetExpires DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  Capture              Capture[]
 }
 
 model Capture {
@@ -41,7 +45,8 @@ model Capture {
   weight      Float?
   size        Float?
   photo       String?
-  timestamp   DateTime?
+  date        String?
+  time        String?
   location    Location? @relation(fields: [locationId], references: [id])
   locationId  Int
   weatherData Weather?  @relation(fields: [weatherId], references: [id])
