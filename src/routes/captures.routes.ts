@@ -6,7 +6,9 @@ import {
   updateCaptureById,
   deleteCaptureById,
 } from "../controllers/capture.controller";
+import multer from "multer";
 
+const upload = multer();
 const router = Router();
 
 /**
@@ -31,11 +33,16 @@ const router = Router();
  *           type: string
  *           nullable: true
  *           format: binary
- *         timestamp:
+ *         date:
  *           type: string
- *           format: date-time
+ *           format: date
  *           nullable: true
- *           example: 2023-04-23T18:25:43.511Z
+ *           example: 2023-04-23
+ *         time:
+ *           type: string
+ *           format: time
+ *           nullable: true
+ *           example: 18:25:43
  *         locationId:
  *           type: integer
  *           nullable: true
@@ -91,7 +98,7 @@ const router = Router();
  *       400:
  *         description: Invalid Data
  */
-router.post("/", addCapture);
+router.post("/", upload.any(), addCapture);
 
 /**
  * @swagger

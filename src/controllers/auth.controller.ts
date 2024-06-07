@@ -2,10 +2,13 @@ import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import prisma from "../prismaClient";
+import { generateToken } from "../helpers/tokenGenerator";
+import { sendEmail } from "../middlewares/email.middleware";
 
-const register = async (req: Request, res: Response) => {
-  const file = req.file;
-  const { name, email, password } = req.body;
+const register = async (req: Request, res: any) => {
+  const { name, email, password, imageUrl } = req.body;
+  const activationToken = generateToken();
+  const activationExpires = new Date(Date.now() + 3600000);
 
   const existingUser = await prisma.user.findUnique({
     where: { email },
@@ -23,11 +26,20 @@ const register = async (req: Request, res: Response) => {
         name,
         email,
         password: hashedPassword,
-        photo: file ? file.filename : null,
-        status: false,
+        photo: imageUrl,
+        isActive: false,
         roleId: 2,
+        activationToken,
+        activationExpires,
       },
     });
+
+    const activationUrl = `${process.env.ENVIRONMENT_FE}/activate-account?token=${activationToken}`;
+    await sendEmail(
+      email,
+      "Account Activation",
+      `Please use the following link to activate your account: ${activationUrl}`
+    );
     res.status(201).json(user);
   } catch (error) {
     console.log(error);
@@ -40,7 +52,7 @@ const login = async (req: Request, res: Response) => {
 
   try {
     const user = await prisma.user.findUnique({
-      where: { email },
+      where: { email, isActive: true },
       include: { role: true },
     });
 
@@ -53,7 +65,7 @@ const login = async (req: Request, res: Response) => {
       process.env.JWT_SECRET || "",
       { expiresIn: "24h" }
     );
-    res.json({ token });
+    res.json({ user, token });
   } catch (error) {
     res.status(400).json({ error: "Login failed" });
   }

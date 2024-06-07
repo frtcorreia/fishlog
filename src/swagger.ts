@@ -10,6 +10,20 @@ const options = {
       version: "1.0.0",
       description: "Descrição da sua API",
     },
+    tags: [
+      {
+        name: "User",
+        description: "Endpoints related to user operations",
+      },
+      {
+        name: "Auth",
+        description: "Endpoints related to authentication",
+      },
+      {
+        name: "Capture",
+        description: "Endpoints related to capture operations",
+      },
+    ],
     servers: [
       {
         url: "http://localhost:3000",
